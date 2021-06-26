@@ -26,6 +26,7 @@ dependencies {
     testImplementation("com.almworks.sqlite4java:sqlite4java:1.0.392")
     testImplementation("com.almworks.sqlite4java:libsqlite4java-linux-amd64:1.0.392")
     testImplementation("com.almworks.sqlite4java:sqlite4java-win32-x64:1.0.392")
+    testImplementation("com.almworks.sqlite4java:libsqlite4java-osx:1.0.392")
 
 }
 
