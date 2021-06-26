@@ -1,0 +1,30 @@
+AttributeDefinitions:
+  - AttributeName: Artist
+    AttributeType: S
+  - AttributeName: SongTitle
+    AttributeType: S
+  - AttributeName: AlbumTitle
+    AttributeType: S
+GlobalSecondaryIndexes:
+  - IndexName: SongTitle-index
+    KeySchema:
+      - AttributeName: SongTitle
+        KeyType: HASH
+      - AttributeName: Artist
+        KeyType: RANGE
+    Projection:
+      NonKeyAttributes:
+        - AlbumTitle
+      ProjectionType: INCLUDE
+    ProvisionedThroughput:
+      ReadCapacityUnits: 10
+      WriteCapacityUnits: 5
+KeySchema:
+  - AttributeName: Artist
+    KeyType: HASH
+  - AttributeName: SongTitle
+    KeyType: RANGE
+ProvisionedThroughput:
+  ReadCapacityUnits: 10
+  WriteCapacityUnits: 5
+TableName: Music
