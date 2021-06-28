@@ -12,6 +12,7 @@ class TableDescriptor(
     val LocalSecondaryIndexes: List<LocalSecondaryIndexDescriptor> = arrayListOf(),
     val ProvisionedThroughput: ProvisionedThroughputDescriptor,
     val BillingMode: String = "",
+    val StreamSpecification: StreamSpecificationDescriptor = StreamSpecificationDescriptor(),
 ) {
     fun build(tableName: String = TableName): CreateTableRequest {
         return CreateTableRequest.builder()
@@ -27,10 +28,11 @@ class TableDescriptor(
                 }
             }
             .also {
-                if(BillingMode.isNotEmpty()){
+                if (BillingMode.isNotEmpty()) {
                     it.billingMode(BillingMode)
                 }
             }
+            .streamSpecification(StreamSpecification.build())
             .build()
     }
 }
@@ -120,6 +122,23 @@ class LocalSecondaryIndexDescriptor(
             .indexName(IndexName)
             .keySchema(KeySchema.map { it.build() })
             .projection(Projection.build())
+            .build()
+    }
+}
+
+@Serializable
+class StreamSpecificationDescriptor(
+    val StreamEnabled: Boolean = false,
+    val StreamViewType: String = "",
+) {
+    fun build(): StreamSpecification {
+        return StreamSpecification.builder()
+            .streamEnabled(StreamEnabled)
+            .also {
+                if (StreamEnabled) {
+                    it.streamViewType(StreamViewType)
+                }
+            }
             .build()
     }
 }

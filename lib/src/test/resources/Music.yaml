@@ -12,3 +12,6 @@ ProvisionedThroughput:
   ReadCapacityUnits: 10
   WriteCapacityUnits: 5
 TableName: Music
+StreamSpecification:
+  StreamEnabled: true
+  StreamViewType: NEW_AND_OLD_IMAGES
