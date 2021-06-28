@@ -11,6 +11,7 @@ class TableDescriptor(
     val GlobalSecondaryIndexes: List<GlobalSecondaryIndexDescriptor> = arrayListOf(),
     val LocalSecondaryIndexes: List<LocalSecondaryIndexDescriptor> = arrayListOf(),
     val ProvisionedThroughput: ProvisionedThroughputDescriptor,
+    val BillingMode: String = "",
 ) {
     fun build(tableName: String = TableName): CreateTableRequest {
         return CreateTableRequest.builder()
@@ -23,6 +24,11 @@ class TableDescriptor(
                 }
                 if (LocalSecondaryIndexes.isNotEmpty()) {
                     it.localSecondaryIndexes(LocalSecondaryIndexes.map { it.build() })
+                }
+            }
+            .also {
+                if(BillingMode.isNotEmpty()){
+                    it.billingMode(BillingMode)
                 }
             }
             .build()
