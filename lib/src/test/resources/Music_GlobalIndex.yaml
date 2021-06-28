@@ -30,3 +30,5 @@ ProvisionedThroughput:
 TableName: Music
 StreamSpecification:
   StreamEnabled: false
+SSESpecification:
+  Enabled: false

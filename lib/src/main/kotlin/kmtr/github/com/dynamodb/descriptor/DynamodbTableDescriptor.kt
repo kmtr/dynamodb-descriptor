@@ -13,6 +13,7 @@ class TableDescriptor(
     val ProvisionedThroughput: ProvisionedThroughputDescriptor,
     val BillingMode: String = "",
     val StreamSpecification: StreamSpecificationDescriptor = StreamSpecificationDescriptor(),
+    val SSESpecification: SSESpecificationDescriptor = SSESpecificationDescriptor(),
 ) {
     fun build(tableName: String = TableName): CreateTableRequest {
         return CreateTableRequest.builder()
@@ -33,6 +34,7 @@ class TableDescriptor(
                 }
             }
             .streamSpecification(StreamSpecification.build())
+            .sseSpecification(SSESpecification.build())
             .build()
     }
 }
@@ -137,6 +139,25 @@ class StreamSpecificationDescriptor(
             .also {
                 if (StreamEnabled) {
                     it.streamViewType(StreamViewType)
+                }
+            }
+            .build()
+    }
+}
+
+@Serializable
+class SSESpecificationDescriptor(
+    val Enabled: Boolean = false,
+    val SSEType: String = "",
+    val KMSMasterKeyId: String = "",
+) {
+    fun build(): SSESpecification {
+        return SSESpecification.builder()
+            .enabled(Enabled)
+            .also {
+                if (Enabled) {
+                    it.sseType(SSEType)
+                    it.kmsMasterKeyId(KMSMasterKeyId)
                 }
             }
             .build()
