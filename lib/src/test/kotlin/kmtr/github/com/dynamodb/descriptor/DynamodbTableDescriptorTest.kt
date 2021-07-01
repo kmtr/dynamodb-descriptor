@@ -3,6 +3,7 @@ package kmtr.github.com.dynamodb.descriptor
 import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded
 import com.amazonaws.services.dynamodbv2.local.shared.access.AmazonDynamoDBLocal
 import com.charleskorn.kaml.Yaml
+import kmtr.github.com.dynamodb.operator.buildCreateTableRequest
 import java.util.logging.Logger
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -37,7 +38,7 @@ class LibraryTest {
             val yamlText = this::class.java.getResource(it.value).readText(Charsets.UTF_8)
             val decoded = Yaml.default.decodeFromString(TableDescriptor.serializer(), yamlText)
             val cli = dynamodb.dynamoDbClient()
-            cli.createTable(decoded.build(it.key))
+            cli.createTable(buildCreateTableRequest(decoded, it.key))
         }
     }
 }
