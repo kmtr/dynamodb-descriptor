@@ -35,7 +35,7 @@ class LibraryTest {
 
         fileNames.forEach {
             logger.info("Load Dynamodb Schema File: ${it.value}")
-            val yamlText = this::class.java.getResource(it.value).readText(Charsets.UTF_8)
+            val yamlText = this::class.java.getResource(it.value)!!.readText(Charsets.UTF_8)
             val decoded = Yaml.default.decodeFromString(TableDescriptor.serializer(), yamlText)
             val cli = dynamodb.dynamoDbClient()
             cli.createTable(buildCreateTableRequest(decoded, it.key))
