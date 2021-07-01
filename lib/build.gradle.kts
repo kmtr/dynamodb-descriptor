@@ -6,8 +6,11 @@ plugins {
 
 repositories {
     mavenCentral()
+    // for DynamoDBLocal
     maven("https://s3.ap-northeast-1.amazonaws.com/dynamodb-local-tokyo/release")
 }
+
+val sqlite4Version = "1.0.392"
 
 dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
@@ -17,19 +20,20 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 
-    // for DynamodbLocal
     implementation(platform("software.amazon.awssdk:bom:2.16.83"))
     implementation("software.amazon.awssdk:dynamodb")
     implementation("software.amazon.awssdk:dynamodb-enhanced")
 
+    // for DynamoDBLocal
     testImplementation("com.amazonaws:DynamoDBLocal:1.16.0")
-    testImplementation("com.almworks.sqlite4java:sqlite4java:1.0.392")
-    testImplementation("com.almworks.sqlite4java:libsqlite4java-linux-amd64:1.0.392")
-    testImplementation("com.almworks.sqlite4java:sqlite4java-win32-x64:1.0.392")
-    testImplementation("com.almworks.sqlite4java:libsqlite4java-osx:1.0.392")
+    testImplementation("com.almworks.sqlite4java:sqlite4java:${sqlite4Version}")
+    testImplementation("com.almworks.sqlite4java:libsqlite4java-linux-amd64:${sqlite4Version}")
+    testImplementation("com.almworks.sqlite4java:sqlite4java-win32-x64:${sqlite4Version}")
+    testImplementation("com.almworks.sqlite4java:libsqlite4java-osx:${sqlite4Version}")
 
 }
 
+// run DynamoDBLocal when `gradle test`
 val buildNativeLibsPath = "build/native-libs"
 val copyNativeDeps = tasks.register<Copy>("copyNativeDeps") {
     mkdir(buildNativeLibsPath)
