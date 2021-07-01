@@ -9,10 +9,16 @@ https://github.com/charleskorn/kaml
 ## How to use
 
 ```kotlin
-val yamlText = this::class.java.getResource(it.value).readText(Charsets.UTF_8)
-val decoded = Yaml.default.decodeFromString(TableDescriptor.serializer(), yamlText)
-val cli = dynamodb.dynamoDbClient()
-cli.createTable(decoded.build(it.key))
+import com.charleskorn.kaml.Yaml
+import kmtr.github.com.dynamodb.descriptor.TableDescriptor
+import kmtr.github.com.dynamodb.operator.buildCreateTableRequest
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient
+import java.io.File
+
+val yamlText = File("/Music.yaml").readText(Charsets.UTF_8)
+val descriptor = Yaml.default.decodeFromString(TableDescriptor.serializer(), yamlText)
+val cli: DynamoDbClient = /* create DynamoDbClient */
+val result = cli.createTable(buildCreateTableRequest(descriptor, "Music"))
 ```
 
 ## Appendix
