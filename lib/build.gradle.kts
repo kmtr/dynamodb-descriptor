@@ -1,3 +1,7 @@
+group = "kmtr.github.com.dynamodb"
+base.archivesBaseName = "dynamodb-descriptor"
+version = "0.1.0-SNAPSHOT"
+
 plugins {
     kotlin("jvm") version "1.5.20"
     kotlin("plugin.serialization") version "1.5.20"
@@ -51,4 +55,3 @@ tasks.test {
         systemProperties(("java.library.path" to buildNativeLibsPath))
     }
 }
-
