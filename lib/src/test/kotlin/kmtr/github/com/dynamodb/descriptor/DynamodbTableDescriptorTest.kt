@@ -9,9 +9,9 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
-val logger: Logger = Logger.getLogger(LibraryTest::class.qualifiedName)
+val logger: Logger = Logger.getLogger(TableDescriptorTest::class.qualifiedName)
 
-class LibraryTest {
+class TableDescriptorTest {
 
     lateinit var dynamodb: AmazonDynamoDBLocal
 
