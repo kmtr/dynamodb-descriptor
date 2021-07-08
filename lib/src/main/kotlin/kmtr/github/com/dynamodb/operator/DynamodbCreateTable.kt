@@ -87,7 +87,7 @@ private fun buildStreamSpecification(ssd: StreamSpecificationDescriptor): Stream
         .build()
 }
 
-fun buildSSESpecification(ssesd: SSESpecificationDescriptor): SSESpecification {
+private fun buildSSESpecification(ssesd: SSESpecificationDescriptor): SSESpecification {
     return SSESpecification.builder()
         .enabled(ssesd.Enabled)
         .also {
