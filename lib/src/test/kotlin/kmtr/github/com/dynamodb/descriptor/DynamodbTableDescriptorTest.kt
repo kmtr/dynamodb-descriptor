@@ -4,6 +4,7 @@ import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded
 import com.amazonaws.services.dynamodbv2.local.shared.access.AmazonDynamoDBLocal
 import com.charleskorn.kaml.Yaml
 import kmtr.github.com.dynamodb.operator.buildCreateTableRequest
+import kotlinx.serialization.decodeFromString
 import java.util.logging.Logger
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -36,7 +37,7 @@ class TableDescriptorTest {
         fileNames.forEach {
             logger.info("Load Dynamodb Schema File: ${it.value}")
             val yamlText = this::class.java.getResource(it.value)!!.readText(Charsets.UTF_8)
-            val decoded = Yaml.default.decodeFromString(TableDescriptor.serializer(), yamlText)
+            val decoded = Yaml.default.decodeFromString<TableDescriptor>(yamlText)
             val cli = dynamodb.dynamoDbClient()
             cli.createTable(buildCreateTableRequest(decoded, it.key))
         }

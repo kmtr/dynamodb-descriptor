@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "1.5.20"
-    kotlin("plugin.serialization") version "1.5.20"
+    kotlin("jvm") version "1.6.10"
+    kotlin("plugin.serialization") version "1.6.10"
     `java-library`
 }
 
@@ -14,13 +14,13 @@ val sqlite4Version = "1.0.392"
 
 dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-    implementation("com.charleskorn.kaml:kaml:0.34.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.2.1")
+    implementation("com.charleskorn.kaml:kaml:0.38.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.3.1")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 
-    implementation(platform("software.amazon.awssdk:bom:2.16.83"))
+    implementation(platform("software.amazon.awssdk:bom:2.17.97"))
     implementation("software.amazon.awssdk:dynamodb")
     implementation("software.amazon.awssdk:dynamodb-enhanced")
 
